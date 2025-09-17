@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Study Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Study Dashboard</h1>
+            <p>Your all-in-one student companion</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="openTab(event, 'courses')">📚 Courses</button>
+            <button class="tab-btn" onclick="openTab(event, 'reminders')">⏰ Reminders</button>
+            <button class="tab-btn" onclick="openTab(event, 'schedule')">📅 Schedule</button>
+            <button class="tab-btn" onclick="openTab(event, 'materials')">📖 Materials</button>
+            <button class="tab-btn" onclick="openTab(event, 'todo')">✅ To-Do</button>
+            <button class="tab-btn" onclick="openTab(event, 'assignments')">📝 Assignments</button>
+            <button class="tab-btn" onclick="openTab(event, 'exams')">🎯 Exams</button>
+            <button class="tab-btn" onclick="openTab(event, 'quizzes')">❓ Quizzes</button>
+            <button class="tab-btn" onclick="openTab(event, 'memories')">💭 Memories</button>
+        </div>
+
+        <div id="courses" class="tab-content active">
+            <h2 class="section-title">My Courses</h2>
+            <div class="form-group">
+                <label>Course Code:</label>
+                <input type="text" id="courseCode">
+            </div>
+            <div class="form-group">
+                <label>Course Name:</label>
+                <input type="text" id="courseName">
+            </div>
+            <div class="form-group">
+                <label>Instructor:</label>
+                <input type="text" id="courseInstructor">
+            </div>
+            <div class="form-group">
+                <label>Credits:</label>
+                <input type="number" id="courseCredits">
+            </div>
+            <div class="form-group">
+                <label>Semester:</label>
+                <select id="courseSemester">
+                    <option value="sem1">sem1</option>
+                    <option value="sem2">sem2</option>
+                    <option value="sem3">sem3</option>
+                    <option value="sem4">sem4</option>
+                    <option value="sem5">sem5</option>
+                    <option value="sem6">sem6</option>
+                    <option value="sem7">sem7</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Room/Location:</label>
+                <input type="text" id="courseLocation">
+            </div>
+            <div class="form-group">
+                <label>Course Description/Notes:</label>
+                <textarea id="courseDescription"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Course Status:</label>
+                <select id="courseStatus">
+                    <option value="active">Currently Enrolled</option>
+                    <option value="completed">Completed</option>
+                    <option value="dropped">Dropped</option>
+                    <option value="planning">Planning to Take</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Grade (if completed):</label>
+                <input type="text" id="courseGrade">
+            </div>
+            <button class="btn" onclick="addCourse()">Add Course</button>
+            
+            <div id="coursesList" class="grid grid-2"></div>
+        </div>
+
+        <div id="reminders" class="tab-content">
+            <h2 class="section-title">Reminders & Alerts</h2>
+            <div class="form-group">
+                <label>Reminder Title:</label>
+                <input type="text" id="reminderTitle">
+            </div>
+            <div class="form-group">
+                <label>Reminder Type:</label>
+                <select id="reminderType">
+                    <option value="assignment">📝 Assignment Due</option>
+                    <option value="exam">🎯 Exam/Test</option>
+                    <option value="quiz">❓ Quiz</option>
+                    <option value="study">📚 Study Session</option>
+                    <option value="meeting">👥 Meeting/Office Hours</option>
+                    <option value="deadline">⏳ Important Deadline</option>
+                    <option value="event">🎉 Academic Event</option>
+                    <option value="personal">📌 Personal Task</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Date & Time:</label>
+                <input type="datetime-local" id="reminderDateTime" required>
+            </div>
+            <div class="form-group">
+                <label>Priority Level:</label>
+                <select id="reminderPriority">
+                    <option value="high">🔴 High Priority</option>
+                    <option value="medium">🟡 Medium Priority</option>
+                    <option value="low">🟢 Low Priority</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Related Course (optional):</label>
+                <input type="text" id="reminderCourse">
+            </div>
+            <div class="form-group">
+                <label>Alert Time:</label>
+                <select id="reminderAlert">
+                    <option value="0">At the time</option>
+                    <option value="15">15 minutes before</option>
+                    <option value="30">30 minutes before</option>
+                    <option value="60">1 hour before</option>
+                    <option value="1440">1 day before</option>
+                    <option value="2880">2 days before</option>
+                    <option value="10080">1 week before</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Notes/Details:</label>
+                <textarea id="reminderNotes"></textarea>
+            </div>
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="reminderRecurring" style="width: auto; margin-right: 8px;">
+                    Recurring Reminder
+                </label>
+            </div>
+            <div class="form-group" id="recurringOptions" style="display: none;">
+                <label>Repeat Every:</label>
+                <select id="reminderRecurrence">
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly">Monthly</option>
+                </select>
+            </div>
+            <button class="btn" onclick="addReminder()">Add Reminder</button>
+            
+            <div class="reminder-dashboard" style="margin-top: 30px; padding: 20px; background: rgba(255,255,255,0.9); border-radius: 15px; margin-bottom: 20px;">
+                <h3 style="margin-bottom: 15px; color: #333;">📊 Quick Overview</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+                    <div class="dashboard-stat">
+                        <div class="stat-number" id="totalReminders">0</div>
+                        <div class="stat-label">Total Reminders</div>
+                    </div>
+                    <div class="dashboard-stat">
+                        <div class="stat-number urgent" id="urgentReminders">0</div>
+                        <div class="stat-label">Due Today</div>
+                    </div>
+                    <div class="dashboard-stat">
+                        <div class="stat-number warning" id="upcomingReminders">0</div>
+                        <div class="stat-label">This Week</div>
+                    </div>
+                    <div class="dashboard-stat">
+                        <div class="stat-number completed" id="completedReminders">0</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="remindersList" class="grid grid-2"></div>
+        </div>
+
+        <div id="schedule" class="tab-content">
+            <h2 class="section-title">Class Schedule</h2>
+            <div class="form-group">
+                <label>Day:</label>
+                <select id="scheduleDay">
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                    <option value="Sunday">Sunday</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Time:</label>
+                <input type="time" id="scheduleTime" required>
+            </div>
+            <div class="form-group">
+                <label>Subject:</label>
+                <input type="text" id="scheduleSubject">
+            </div>
+            <div class="form-group">
+                <label>Location:</label>
+                <input type="text" id="scheduleLocation">
+            </div>
+            <button class="btn" onclick="addScheduleItem()">Add to Schedule</button>
+            
+            <div id="scheduleList" class="grid grid-2"></div>
+        </div>
+
+        <div id="materials" class="tab-content">
+            <h2 class="section-title">Study Materials</h2>
+            <div class="form-group">
+                <label>Subject:</label>
+                <input type="text" id="materialSubject">
+            </div>
+            <div class="form-group">
+                <label>Title:</label>
+                <input type="text" id="materialTitle">
+            </div>
+            <div class="form-group">
+                <label>Type:</label>
+                <select id="materialType">
+                    <option value="Notes">Notes</option>
+                    <option value="Textbook">Textbook</option>
+                    <option value="Video">Video</option>
+                    <option value="Article">Article</option>
+                    <option value="Practice Problems">Practice Problems</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Upload Document/PDF:</label>
+                <input type="file" id="materialFile" accept=".pdf,.doc,.docx,.txt,.ppt,.pptx" style="background: white;">
+            </div>
+            <div class="form-group">
+                <label>Link/Description:</label>
+                <textarea id="materialDescription" placeholder="Add links, notes, or description..." rows="3"></textarea>
+            </div>
+            <button class="btn" onclick="addMaterial()">Add Material</button>
+            
+            <div id="materialsList" class="grid grid-2"></div>
+        </div>
+
+        <div id="todo" class="tab-content">
+            <h2 class="section-title">To-Do List</h2>
+            <div class="form-group">
+                <label>Task:</label>
+                <input type="text" id="todoTask">
+            </div>
+            <div class="form-group">
+                <label>Priority:</label>
+                <select id="todoPriority">
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Due Date:</label>
+                <input type="datetime-local" id="todoDueDate">
+            </div>
+            <button class="btn" onclick="addTodo()">Add Task</button>
+            
+            <div id="todoList" class="grid grid-2"></div>
+        </div>
+
+        <div id="assignments" class="tab-content">
+            <h2 class="section-title">Assignment Tracker</h2>
+            <div class="form-group">
+                <label>Subject:</label>
+                <input type="text" id="assignmentSubject">
+            </div>
+            <div class="form-group">
+                <label>Assignment Title:</label>
+                <input type="text" id="assignmentTitle">
+            </div>
+            <div class="form-group">
+                <label>Due Date:</label>
+                <input type="datetime-local" id="assignmentDue" required>
+            </div>
+            <div class="form-group">
+                <label>Status:</label>
+                <select id="assignmentStatus">
+                    <option value="pending">Not Started</option>
+                    <option value="in-progress">In Progress</option>
+                    <option value="completed">Completed</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Notes:</label>
+                <textarea id="assignmentNotes" placeholder="Additional notes..." rows="3"></textarea>
+            </div>
+            <button class="btn" onclick="addAssignment()">Add Assignment</button>
+            
+            <div id="assignmentsList" class="grid grid-2"></div>
+        </div>
+
+        <div id="exams" class="tab-content">
+            <h2 class="section-title">Exam Schedule</h2>
+            <div class="form-group">
+                <label>Subject:</label>
+                <input type="text" id="examSubject">
+            </div>
+            <div class="form-group">
+                <label>Exam Type:</label>
+                <select id="examType">
+                    <option value="Midterm">Midterm</option>
+                    <option value="Final">Final</option>
+                    <option value="Quiz">Quiz</option>
+                    <option value="Test">Test</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Date & Time:</label>
+                <input type="datetime-local" id="examDate" required>
+            </div>
+            <div class="form-group">
+                <label>Location:</label>
+                <input type="text" id="examLocation">
+            </div>
+            <div class="form-group">
+                <label>Study Notes:</label>
+                <textarea id="examNotes"></textarea>
+            </div>
+            <button class="btn" onclick="addExam()">Add Exam</button>
+            
+            <div id="examsList" class="grid grid-2"></div>
+        </div>
+
+        <div id="quizzes" class="tab-content">
+            <h2 class="section-title">Quiz Tracker</h2>
+            <div class="form-group">
+                <label>Subject:</label>
+                <input type="text" id="quizSubject">
+            </div>
+            <div class="form-group">
+                <label>Quiz Title:</label>
+                <input type="text" id="quizTitle">
+            </div>
+            <div class="form-group">
+                <label>Date:</label>
+                <input type="datetime-local" id="quizDate" required>
+            </div>
+            <div class="form-group">
+                <label>Score (optional):</label>
+                <input type="text" id="quizScore">
+            </div>
+            <div class="form-group">
+                <label>Status:</label>
+                <select id="quizStatus">
+                    <option value="upcoming">Upcoming</option>
+                    <option value="completed">Completed</option>
+                    <option value="missed">Missed</option>
+                </select>
+            </div>
+            <button class="btn" onclick="addQuiz()">Add Quiz</button>
+            
+            <div id="quizzesList" class="grid grid-2"></div>
+        </div>
+
+        <div id="memories" class="tab-content">
+            <h2 class="section-title">Study Memories & Journal</h2>
+            <div class="form-group">
+                <label>Title:</label>
+                <input type="text" id="memoryTitle">
+            </div>
+            <div class="form-group">
+                <label>Date:</label>
+                <input type="date" id="memoryDate" required>
+            </div>
+            <div class="form-group">
+                <label>Add Image:</label>
+                <input type="file" id="memoryImage" accept="image/*" style="background: white;">
+            </div>
+            <div class="form-group">
+                <label>Memory/Reflection:</label>
+                <textarea id="memoryContent"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Mood:</label>
+                <select id="memoryMood">
+                    <option value="😊">😊 Happy</option>
+                    <option value="😎">😎 Confident</option>
+                    <option value="😅">😅 Stressed</option>
+                    <option value="🤔">🤔 Thoughtful</option>
+                    <option value="😴">😴 Tired</option>
+                    <option value="🎉">🎉 Accomplished</option>
+                </select>
+            </div>
+            <button class="btn" onclick="addMemory()">Save Memory</button>
+            
+            <div id="memoriesList" class="grid grid-2"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
