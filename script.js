@@ -1,4 +1,4 @@
-// Data storage
+
 let courses = [];
 let reminders = [];
 let schedule = [];
@@ -9,7 +9,7 @@ let exams = [];
 let quizzes = [];
 let memories = [];
 
-// Tab functionality
+
 function openTab(evt, tabName) {
     const tabContents = document.getElementsByClassName('tab-content');
     for (let content of tabContents) {
@@ -25,7 +25,7 @@ function openTab(evt, tabName) {
     evt.currentTarget.classList.add('active');
 }
 
-// Reminders functions
+
 function addReminder() {
     const title = document.getElementById('reminderTitle').value;
     const type = document.getElementById('reminderType').value;
@@ -57,7 +57,7 @@ function addReminder() {
         created: new Date()
     });
 
-    // Clear form
+    =
     document.getElementById('reminderTitle').value = '';
     document.getElementById('reminderDateTime').value = '';
     document.getElementById('reminderCourse').value = '';
@@ -73,7 +73,7 @@ function renderReminders() {
     const container = document.getElementById('remindersList');
     const now = new Date();
     
-    // Sort reminders by date
+    
     const sortedReminders = reminders.sort((a, b) => new Date(a.dateTime) - new Date(b.dateTime));
     
     let html = sortedReminders.map(reminder => {
@@ -82,7 +82,7 @@ function renderReminders() {
         const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
         const hoursDiff = Math.ceil(timeDiff / (1000 * 60 * 60));
         
-        // Determine urgency class and time display
+        
         let urgencyClass = 'reminder-normal';
         let timeDisplay = '';
         let timeClass = 'time-later';
@@ -222,7 +222,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Courses functions
+
 function addCourse() {
     const code = document.getElementById('courseCode').value;
     const name = document.getElementById('courseName').value;
@@ -299,7 +299,7 @@ function deleteCourse(id) {
     renderCourses();
 }
 
-// Schedule functions
+
 function addScheduleItem() {
     const day = document.getElementById('scheduleDay').value;
     const time = document.getElementById('scheduleTime').value;
@@ -361,7 +361,7 @@ function deleteScheduleItem(id) {
     renderSchedule();
 }
 
-// Materials functions
+
 function addMaterial() {
     const subject = document.getElementById('materialSubject').value;
     const title = document.getElementById('materialTitle').value;
@@ -441,7 +441,7 @@ function deleteMaterial(id) {
     renderMaterials();
 }
 
-// Todo functions
+
 function addTodo() {
     const task = document.getElementById('todoTask').value;
     const priority = document.getElementById('todoPriority').value;
@@ -497,7 +497,7 @@ function deleteTodo(id) {
     renderTodos();
 }
 
-// Assignment functions
+
 function addAssignment() {
     const subject = document.getElementById('assignmentSubject').value;
     const title = document.getElementById('assignmentTitle').value;
@@ -554,7 +554,7 @@ function deleteAssignment(id) {
     renderAssignments();
 }
 
-// Exam functions
+
 function addExam() {
     const subject = document.getElementById('examSubject').value;
     const type = document.getElementById('examType').value;
@@ -607,7 +607,7 @@ function deleteExam(id) {
     renderExams();
 }
 
-// Quiz functions
+
 function addQuiz() {
     const subject = document.getElementById('quizSubject').value;
     const title = document.getElementById('quizTitle').value;
@@ -661,7 +661,7 @@ function deleteQuiz(id) {
     renderQuizzes();
 }
 
-// Memory functions
+
 function addMemory() {
     const title = document.getElementById('memoryTitle').value;
     const date = document.getElementById('memoryDate').value;
@@ -732,5 +732,5 @@ function deleteMemory(id) {
     renderMemories();
 }
 
-// Initialize with today's date for memory
+
 document.getElementById('memoryDate').value = new Date().toISOString().split('T')[0];
